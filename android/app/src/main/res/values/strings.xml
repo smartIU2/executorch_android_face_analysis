@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Face Analysis</string>
+    <string name="session_started">Camera is starting up…</string>
+    <string name="session_ended"> </string>
+    <string name="end_session">Stop Session</string>
+    <string name="start_session">Analyze View</string>
+    <string name="press_start">Press \'Analyze View\' to analyze the camera view, or \'Analyze Image\' to select a photo.</string>
+    <string name="no_detections">No faces detected.</string>
+    <string name="bounding_boxes">Bounding Boxes</string>
+    <string name="analyze_image">Analyze Image</string>
+    <string name="image">Image</string>
+</resources>

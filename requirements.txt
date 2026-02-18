@@ -1,0 +1,7 @@
+torch>=2.10.0
+torchvision>=2.10.0
+ultralytics>=8.4.9
+transformers>=4.7.0
+accelerate
+executorch>=1.1.0
+torchao>=0.16.0
