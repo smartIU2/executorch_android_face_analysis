@@ -4,6 +4,8 @@ This repository represents an example for deploying PyTorch models to Android wi
   - conversion of a pre-trained [YOLO face detection](https://github.com/akanametov/yolo-face) model, and two ViT models for [age, gender](https://huggingface.co/abhilash88/age-gender-prediction) & [facial emotion recognition](https://huggingface.co/abhilash88/face-emotion-detection) from PyTorch to ExecuTorch
   - complete Android application utilizing the ExecuTorch models to analyze faces in pictures or from the live camera view
 
+<img width="2398" height="948" alt="screenshot_wide" src="https://github.com/user-attachments/assets/e1bf2711-8cfb-4191-84da-baa11b875897" />
+
 
 ## Conversion
 
@@ -11,9 +13,9 @@ This repository represents an example for deploying PyTorch models to Android wi
 
 Python version 3.10 or newer needs to be installed on your machine.
 
-As all employed machine learning models are based on PyTorch, you need to install torch & torchvision. Follow the instructions on the [PyTorch website](https://pytorch.org/get-started/locally/) for your environment. The newest version 2.10 is highly recommended. For the conversion all models are mapped to the CPU for alignment, so it doesn't matter wether or not you're installing the CUDA variants.
+As all employed machine learning models are based on PyTorch, you need to install torch & torchvision. Follow the instructions on the [PyTorch website](https://pytorch.org/get-started/locally/) for your environment. The newest version 2.10 is highly recommended. For the conversion all models are mapped to the CPU for alignment, so it doesn't matter whether or not you're installing the CUDA variants.
 
-To load the YOLO model you need the ultralytics library, and for the ViT models the transformers library is required. 
+To load the YOLO model, you need the ultralytics library, and for the ViT models the transformers library is required. 
 
 ```commandline
 pip install ultralytics>=8.4.9 transformers>=4.7.0
@@ -25,7 +27,7 @@ For the conversion the accelerate and ExecuTorch libraries are necessary.
 pip install accelerate executorch>=1.1.0
 ```
 
-ExecuTorch will also install TorchAO, but depending on your version of PyTorch, you might need to up- or downgrade. Check the [compatability table](https://github.com/pytorch/ao/issues/2919). For ExecuTorch 1.1.0 and PyTorch 2.10, you should manually upgrade to 0.16.0.
+ExecuTorch will also install TorchAO, but depending on your version of PyTorch, you might need to up- or downgrade. Check the [compatibility table](https://github.com/pytorch/ao/issues/2919). For ExecuTorch 1.1.0 and PyTorch 2.10, you should manually upgrade to 0.16.0.
 
 ```commandline
 pip install torchao==0.16.0
@@ -78,7 +80,7 @@ export_executorch.py --yolo_partitioner vulkan --yolo_quantize --vit_quantize
 
 ### Configuration
 
-By default the python routine creates two YOLO ExecuTorch models, one for portrait and one for landscape orientation - with input sizes of 768x1024 and 1024x768 respectively. ExecuTorch technically also supports dynamic input shapes, but the results with the YOLO face model were not satisfactory, as detected bounding boxes were slightly off horizontally and faces on the far right of images were not detected properly.
+By default, the python routine creates two YOLO ExecuTorch models, one for portrait and one for landscape orientation - with input sizes of 768x1024 and 1024x768 respectively. ExecuTorch technically also supports dynamic input shapes, but the results with the YOLO face model were not satisfactory, as detected bounding boxes were slightly off horizontally and faces on the far right of images were not detected properly.
 
 If you want to experiment with it, change the fixed input sizes, use a different YOLO version, or adjust other options, check out all the available arguments for the python routine:
 
@@ -86,10 +88,10 @@ If you want to experiment with it, change the fixed input sizes, use a different
 export_executorch.py -h
 ```
 
-Be aware that when exporting with and without dynamic input shapes, you have to manually delete the unwanted models from "./android/app/src/main/assets". Otherwise the Android application will prefer the dynamic model, if it is found.
+Be aware that when exporting with and without dynamic input shapes, you have to manually delete the unwanted models from "./android/app/src/main/assets". Otherwise, the Android application will prefer the dynamic model, if it is found.
 
 
-You could also use different models than the ones from [abhilash88](https://huggingface.co/abhilash88) for the face analysis, by changing the model identifiers in the transformers ".from_pretrained" calls in the export_executorch.py file. Different facial emotion recognition models, based on the same [google/vit-base-patch16-224](https://huggingface.co/google/vit-base-patch16-224) base model, have been tested succesfully without any changes to the code. Other models might need more experimentation.
+You could also use different models than the ones from [abhilash88](https://huggingface.co/abhilash88) for the face analysis, by changing the model identifiers in the transformers ".from_pretrained" calls in the export_executorch.py file. Different facial emotion recognition models, based on the same [google/vit-base-patch16-224](https://huggingface.co/google/vit-base-patch16-224) base model, have been tested successfully without any changes to the code. Other models might need more experimentation.
 
 
 
